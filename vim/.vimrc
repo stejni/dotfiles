@@ -28,6 +28,16 @@ Bundle 'maksimr/vim-jsbeautify'
 " more js syntax options
 Bundle 'scrooloose/syntastic'
 " sweet linting/error checking. Works on save
+Bundle 'othree/vim-autocomplpop'
+" Auto complete
+Bundle 'L9'
+" L9 lib for autocomplpop
+Bundle 'marijnh/tern_for_vim'
+" Code analysis for JS, must run:
+" npm install in bundle directory after install
+Bundle 'kien/rainbow_parentheses.vim'
+" Rainbow braces
+
 
 
 filetype plugin indent on
@@ -127,3 +137,10 @@ cmap w!! %!sudo tee > /dev/null %
 "
 
 let g:ctrlp_map = '<c-p>'
+
+
+" Rainbow parenthesis always on
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
