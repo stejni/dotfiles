@@ -27,6 +27,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'maksimr/vim-jsbeautify'
 " more js syntax options
 Bundle 'scrooloose/syntastic'
+" Requires npm install -g jshint
 " sweet linting/error checking. Works on save
 Bundle 'othree/vim-autocomplpop'
 " Auto complete
@@ -37,11 +38,24 @@ Bundle 'marijnh/tern_for_vim'
 " npm install in bundle directory after install
 Bundle 'kien/rainbow_parentheses.vim'
 " Rainbow braces
-
+Bundle 'rking/ag.vim'
+"ag search for Vim, requires Ag - the silver surfer (a faster Ack)
+" use::Ag [options] {pattern} [{directory}] 
+Bundle 'scrooloose/nerdcommenter'
+" Enables quick comment/uncomment of several lines
+Bundle 'mhinz/vim-signify'
+" Enables indication of edited or removed lines from version control
+Bundle 'sjl/gundo.vim'
+" Shows graphical undo tree
+Bundle 'bling/vim-airline'
+" Status bar
+" Bundle 'bling/vim-bufferline'
+" Shows list of buffers in statusline
+" Seems to not be needed as airline dos it automatically
 
 
 filetype plugin indent on
-let mapleader = ","
+let mapleader = " "
 
 " :BundleInstall(!) to install bundles
 
@@ -131,13 +145,32 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 "  http://stackoverflow.com/questions/95072/what-are-your-favorite-vim-tricks/96492#96492
 cmap w!! %!sudo tee > /dev/null %
 
+" Key mappings
 
+" Splitting
+" Navigate splits
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
 
 " PLUGINS
 "
+let g:EasyMotion_leader_key = '<Leader>'
 
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlPMixed'
+map <leader>b :CtrlPBuffer<Enter>
+map <leader>g :GundoToggle
+"let g:ctrlp_map = '<leader>p'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+let g:airline_detect_modified=1
+let g:airline_theme='serene'
 
 " Rainbow parenthesis always on
 au VimEnter * RainbowParenthesesToggle
