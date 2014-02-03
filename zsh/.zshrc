@@ -7,6 +7,27 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="nanotech"
 
+
+# remove default .4 seconds delay after changing mode
+# this can result in issues with other term commands
+# ifso return to 4
+export KEYTIMEOUT=1
+
+# Use vim cli mode
+bindkey '^P' up-history
+bindkey '^N' down-history
+#
+# # backspace and ^h working even after
+# # returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+#
+# # ctrl-w removed word backwards
+bindkey '^w' backward-kill-word
+#
+# # ctrl-r starts searching history backward
+bindkey '^r' history-incremental-search-backward
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -55,3 +76,6 @@ predict-toggle() {
   bindkey '^Z'   predict-toggle
   zstyle ':predict' toggle true
   zstyle ':predict' verbose true
+export EDITOR=vim
+bindkey -v
+bindkey -M viins 'jj' vi-cmd-mode

@@ -29,8 +29,11 @@ Bundle 'maksimr/vim-jsbeautify'
 Bundle 'scrooloose/syntastic'
 " Requires npm install -g jshint
 " sweet linting/error checking. Works on save
-Bundle 'othree/vim-autocomplpop'
-" Auto complete
+"Bundle 'othree/vim-autocomplpop'
+" Auto complete does not require python
+Bundle 'Valloric/YouCompleteMe'
+" Auto complete - requires python
+" Also requires compilation, look it up
 Bundle 'L9'
 " L9 lib for autocomplpop
 Bundle 'marijnh/tern_for_vim'
@@ -52,7 +55,12 @@ Bundle 'bling/vim-airline'
 " Bundle 'bling/vim-bufferline'
 " Shows list of buffers in statusline
 " Seems to not be needed as airline dos it automatically
-
+Bundle 'SirVer/ultisnips'
+" Snippets
+Bundle 'jiangmiao/auto-pairs'
+" Auto close parens
+Bundle 'tpope/vim-surround'
+" Surrounds using s command + motions
 
 filetype plugin indent on
 let mapleader = " "
@@ -107,17 +115,17 @@ set incsearch
 " "
 " http://www.reddit.com/r/vim/comments/kz84u/what_are_some_simple_yet_mindblowing_tweaks_to/c2onmqe
 if has("persistent_undo")
-    set undodir=~/.vim/undodir
-        set undofile
+	set undodir=~/.vim/undodir
+	set undofile
 endif
 
 " Return to last edit position when opening files (You want this!)
- autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
 " Remember info about open buffers on close
- set viminfo^=%
+set viminfo^=%
 
 set autoread "update edited files
 set backspace=eol,start,indent
@@ -162,6 +170,12 @@ let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlPMixed'
 map <leader>b :CtrlPBuffer<Enter>
 map <leader>g :GundoToggle
+
+
+let g:UltiSnipsExpandTrigger = '<leader>o'
+let g:UltiSnipsJumpForwardTrigger = '<leader>o'
+let g:UltiSnipsJumpBackwardTrigger = '<leader>o'
+
 "let g:ctrlp_map = '<leader>p'
 
 let g:airline#extensions#tabline#enabled = 1
@@ -171,6 +185,28 @@ let g:airline_left_sep=' '
 let g:airline_right_sep=' '
 let g:airline_detect_modified=1
 let g:airline_theme='serene'
+:set laststatus=2
+" Fix for airline only appearing in splits
+
+
+function! g:UltiSnips_Complete()
+	call UltiSnips_ExpandSnippet()
+	if g:ulti_expand_res == 0
+		if pumvisible()
+			return "\<C-n>"
+		else
+			call UltiSnips_JumpForwards()
+			if g:ulti_jump_forwards_res == 0
+				return "\<TAB>"
+			endif
+		endif
+	endif
+	return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
 
 " Rainbow parenthesis always on
 au VimEnter * RainbowParenthesesToggle
