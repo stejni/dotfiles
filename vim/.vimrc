@@ -15,7 +15,8 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 
-Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'Lokaltog/vim-easymotion'
+Bundle 'justinmk/vim-sneak'
 Bundle 'tomasr/molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'kien/ctrlp.vim'
@@ -164,7 +165,7 @@ nnoremap <leader>h <C-W><C-H>
 
 " PLUGINS
 "
-let g:EasyMotion_leader_key = '<Leader>'
+" let g:EasyMotion_leader_key = '<leader><Space>'
 
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlPMixed'
@@ -172,9 +173,9 @@ map <leader>b :CtrlPBuffer<Enter>
 map <leader>g :GundoToggle
 
 
-let g:UltiSnipsExpandTrigger = '<leader>o'
-let g:UltiSnipsJumpForwardTrigger = '<leader>o'
-let g:UltiSnipsJumpBackwardTrigger = '<leader>o'
+let g:UltiSnipsExpandTrigger = '<c-a>'
+let g:UltiSnipsJumpForwardTrigger = '<c-d>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-s>'
 
 "let g:ctrlp_map = '<leader>p'
 
