@@ -17,7 +17,6 @@ Bundle 'gmarik/vundle'
 
 " Bundle 'Lokaltog/vim-easymotion'
 Bundle 'justinmk/vim-sneak'
-Bundle 'tomasr/molokai'
 Bundle 'mattn/emmet-vim'
 Bundle 'kien/ctrlp.vim'
 " Buffer search
@@ -26,6 +25,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'pangloss/vim-javascript'
 " Javasccript foratting
 Bundle 'maksimr/vim-jsbeautify'
+Bundle 'tomasr/molokai'
+Bundle 'w0ng/vim-hybrid'
 " more js syntax options
 Bundle 'scrooloose/syntastic'
 " Requires npm install -g jshint
@@ -162,6 +163,9 @@ nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
+
+
+set clipboard^=unnamedplus " Enable copy to clipboard  register: "+yy
 
 " PLUGINS
 "
