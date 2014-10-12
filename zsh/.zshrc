@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="nanotech"
+ZSH_THEME="stans"
 
 
 # remove default .4 seconds delay after changing mode
@@ -78,4 +78,4 @@ predict-toggle() {
   zstyle ':predict' verbose true
 export EDITOR=vim
 bindkey -v
-bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'jk' vi-cmd-mode

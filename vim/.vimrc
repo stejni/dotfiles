@@ -2,10 +2,8 @@ set nocompatible
 filetype off
 
 " you must install vundle : git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
@@ -29,6 +27,7 @@ Bundle 'tomasr/molokai'
 Bundle 'w0ng/vim-hybrid'
 " more js syntax options
 Bundle 'scrooloose/syntastic'
+" Comment blocks of code
 " Requires npm install -g jshint
 " sweet linting/error checking. Works on save
 "Bundle 'othree/vim-autocomplpop'
@@ -63,8 +62,16 @@ Bundle 'jiangmiao/auto-pairs'
 " Auto close parens
 Bundle 'tpope/vim-surround'
 " Surrounds using s command + motions
+Bundle 'laurentgoudet/vim-howdoi'
 
+Bundle 'wellle/targets.vim'
+" Allows more change inner actions, eg comma seperated list, and next
+" occurence
+Bundle 'Shutnik/jshint2.vim'
+
+call vundle#end()
 filetype plugin indent on
+
 let mapleader = " "
 
 " :BundleInstall(!) to install bundles
