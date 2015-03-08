@@ -23,12 +23,11 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'pangloss/vim-javascript'
 " Javasccript foratting
 Bundle 'maksimr/vim-jsbeautify'
-Bundle 'tomasr/molokai'
 Bundle 'w0ng/vim-hybrid'
 " more js syntax options
 Bundle 'scrooloose/syntastic'
 " Comment blocks of code
-" Requires npm install -g jshint
+" Requires npm install -g jshint or -g eslint
 " sweet linting/error checking. Works on save
 "Bundle 'othree/vim-autocomplpop'
 " Auto complete does not require python
@@ -58,6 +57,8 @@ Bundle 'bling/vim-airline'
 " Seems to not be needed as airline dos it automatically
 Bundle 'SirVer/ultisnips'
 " Snippets
+Bundle 'honza/vim-snippets'
+
 Bundle 'jiangmiao/auto-pairs'
 " Auto close parens
 Bundle 'tpope/vim-surround'
@@ -69,11 +70,38 @@ Bundle 'wellle/targets.vim'
 " occurence
 Bundle 'Shutnik/jshint2.vim'
 
+" Allows to step through history of a file in git
+Bundle 'junkblocker/git-time-lapse'
+
+" Allows both YCM and UltiSnips to work on tab
+Bundle 'ervandew/supertab'
+
+" Nerdtree - just to see the dir structure
+Bundle 'scrooloose/nerdtree'
+
+" Color schemes
+Bundle 'tomasr/molokai'
+" Dark grey, relatively easy on eyes
+Bundle 'jordwalke/flatlandia'
+
+"Very low contrast theme
+Bundle 'junegunn/seoul256.vim'
+
+"Yellow bg - vwey nice
+Bundle "sandeepsinghmails/Dev_Delight"
+
+" Most popular scheme
+Bundle "altercation/vim-colors-solarized.git"
+
+Bundle 'ruanyl/vim-fixmyjs'
+" Automatically fixes linting style errors
+" requires npm install -g fixmyjs
+
 call vundle#end()
 filetype plugin indent on
 
 let mapleader = " "
-
+"let g:solarized_termcolors=256
 " :BundleInstall(!) to install bundles
 
 set number	"line numbers
@@ -172,6 +200,11 @@ nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
 
 
+" Buffer navigation
+nnoremap <leader>H :bp <CR>
+nnoremap <leader>L :bn <CR> 
+
+
 set clipboard^=unnamedplus " Enable copy to clipboard  register: "+yy
 
 " PLUGINS
@@ -183,12 +216,23 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 map <leader>b :CtrlPBuffer<Enter>
 map <leader>g :GundoToggle
 
+" Git Time lapse
+nmap <Leader>gt <Plug>(git-time-lapse)
 
-let g:UltiSnipsExpandTrigger = '<c-a>'
-let g:UltiSnipsJumpForwardTrigger = '<c-d>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-s>'
+" NERDTree 
+map <leader>t :NERDTreeToggle<CR>
+"let g:UltiSnips#ExpandSnippet = '``'
+"let g:UltiSnipsJumpForwardTrigger = '<c-d>'
+"let g:UltiSnipsJumpBackwardTrigger = '<c-s>'
 
 "let g:ctrlp_map = '<leader>p'
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:use_legacy_Fixmyjs = 1
+noremap <Leader><Leader>f :Fixmyjs<CR>
+
+
+
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -200,25 +244,48 @@ let g:airline_theme='serene'
 :set laststatus=2
 " Fix for airline only appearing in splits
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
-function! g:UltiSnips_Complete()
-	call UltiSnips_ExpandSnippet()
-	if g:ulti_expand_res == 0
-		if pumvisible()
-			return "\<C-n>"
-		else
-			call UltiSnips_JumpForwards()
-			if g:ulti_jump_forwards_res == 0
-				return "\<TAB>"
-			endif
-		endif
-	endif
-	return ""
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<nop>" "Nothing, so that Enter can be used
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+" From : https://github.com/Valloric/YouCompleteMe/issues/420
+" Lets us use return key to complete Ultisnips
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
 endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-e>"
+"function! g:UltiSnips_Complete()
+"	call UltiSnips_ExpandSnippet()
+"	if g:ulti_expand_res == 0
+"		if pumvisible()
+"			return "\<C-n>"
+"		else
+"			call UltiSnips_JumpForwards()
+"			if g:ulti_jump_forwards_res == 0
+"				return "\<TAB>"
+"			endif
+"		endif
+"	endif
+"	return ""
+"endfunction
+"
+"au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-e>"
 
 " Rainbow parenthesis always on
 au VimEnter * RainbowParenthesesToggle
