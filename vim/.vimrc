@@ -14,6 +14,8 @@ Bundle 'gmarik/vundle'
 " original repos on github
 
 " Bundle 'Lokaltog/vim-easymotion'
+" multi line navigation with 2 charaters instead of one
+" s{char}{char} - go to matching location 
 Bundle 'justinmk/vim-sneak'
 Bundle 'mattn/emmet-vim'
 Bundle 'kien/ctrlp.vim'
@@ -96,6 +98,34 @@ Bundle "altercation/vim-colors-solarized.git"
 Bundle 'ruanyl/vim-fixmyjs'
 " Automatically fixes linting style errors
 " requires npm install -g fixmyjs
+
+" JS Doc
+" :JSDoc on function definition
+Bundle 'heavenshell/vim-jsdoc'
+" Previews replacements
+Bundle 'osyo-manga/vim-over'
+
+" Start menu and easier Session handling
+" :SLoad    load a session
+" :SSave    save a session
+" :SDelete  delete a session
+Bundle 'mhinz/vim-startify'
+let g:startify_session_persistence = 1
+
+" Easy commenting
+" gcc - comment out a line (optional number)
+" gc{motion} -- comment out target of motion (ex. gcap -comment out a
+" paragraph)
+Bundle 'tpope/vim-commentary'
+
+" Camel Case text objects
+" I have mapped them to W, B, E
+Bundle 'bkad/CamelCaseMotion'
+
+" Colortheme
+Bundle 'hhff/SpacegrayEighties.vim'
+
+
 
 call vundle#end()
 filetype plugin indent on
@@ -205,6 +235,17 @@ nnoremap <leader>H :bp <CR>
 nnoremap <leader>L :bn <CR> 
 
 
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> E <Plug>CamelCaseMotion_e
+map <silent> B <Plug>CamelCaseMotion_b
+omap <silent> iW <Plug>CamelCaseMotion_iw
+xmap <silent> iW <Plug>CamelCaseMotion_iw
+omap <silent> iE <Plug>CamelCaseMotion_ie
+xmap <silent> iE <Plug>CamelCaseMotion_ie
+omap <silent> iB <Plug>CamelCaseMotion_ib
+xmap <silent> iB <Plug>CamelCaseMotion_ib
+
+
 set clipboard^=unnamedplus " Enable copy to clipboard  register: "+yy
 
 " PLUGINS
@@ -232,7 +273,9 @@ let g:use_legacy_Fixmyjs = 1
 noremap <Leader><Leader>f :Fixmyjs<CR>
 
 
+" startify
 
+let g:startify_bookmarks = [ '~/.vimrc'  ]
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
