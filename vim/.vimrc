@@ -245,6 +245,9 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 omap <silent> iB <Plug>CamelCaseMotion_ib
 xmap <silent> iB <Plug>CamelCaseMotion_ib
 
+" Saving 
+nnoremap <leader>w :w <CR>
+
 
 set clipboard^=unnamedplus " Enable copy to clipboard  register: "+yy
 
